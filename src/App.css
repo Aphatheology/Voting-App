@@ -5,43 +5,30 @@
 }
 
 .App {
-  /* text-align: center; */
-  width: 100%;
-  height: 100vh;
-  display: flex;
+    width: 100%;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background: linear-gradient(
-        to right,
-        pink 0%,
-        pink 50%,
-        grey 50%,
-        grey 100%
-    ); */
-    /* background-color: aqua; */
-
 }
 
 .voting-box {
-    
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 20px;
-    padding: 25px;
 }
 
 .each-box {
-    padding: 5px;
+    padding: 30px;
     cursor: pointer;
 }
 
 .voting-box .cat {
     color: #4ea1ed;
     order: 1;
-    /* border-right: 1px solid black; */
 }
 
 .voting-box .dog {
@@ -49,19 +36,18 @@
     order: 3;
 }
   
-  .voting-box::before {
+.voting-box::before {
     order: 2;
     content: "";
-    height: 100%;
+    height: 90%;
     border: 1px solid #e7e7e7;
-  }
+}
 
-  p {
-    /* margin-top: auto; */
+p {
     position: absolute;
     bottom: 25px;
     right: 25px;
     color: #a4e7ec;
     font-size: 2rem;
-  }
+}
 

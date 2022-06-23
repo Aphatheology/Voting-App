@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import VotingBox from './components/VotingBox';
 
@@ -7,53 +7,41 @@ function App() {
         catVote: 0,
         dogVote: 0
     })
-    // const [catVote, setCatVote] = useState(0);
-    // const [dogVote, setDogVote] = useState(0);
-    function handleCatVote() {
-        // setCatVote(catVote + 1);
-        setVote(prevVote => ({...prevVote, catVote: prevVote.catVote + 1}))
+
+    function handleVote(animal) {
+        if(animal === 'cat') {
+            setVote(prevVote => ({...prevVote, catVote: prevVote.catVote + 1}))
+        } else {
+            setVote(prevVote => ({...prevVote, dogVote: prevVote.dogVote + 1}))
+        }
     }
-    function handleDogVote() {
-        // setDogVote(dogVote + 1);
-        setVote(prevVote => ({...prevVote, dogVote: prevVote.dogVote + 1}))
-    }
-    const [catVote, dogVote] = vote
-    let disCat = ((catVote) / (catVote + dogVote) * 100).toFixed(1);
-
-    disCat = !(isNaN(disCat)) ? `${disCat}%` : "0%";
-    let disDog = ((dogVote) / (catVote + dogVote) * 100).toFixed(1);
-
-    disDog = !(isNaN(disDog)) ? `${disDog}%` : "0%";
-    // console.log(disCat)
-
-    // console.log(`linear-gradient(to right, pink 0%, pink ${disCat}%, grey ${disCat}%, grey ${disDog}%)`)
-
-    let styles = {
-        // background: 'linear-gradient(to right, pink 0%, pink 50%, grey 50%, grey 100%)'
-        // backgroundImage: `linear-gradient(to right, pink 0%, pink 50%, grey 50%, grey 0%)`
-
-        backgroundImage: `linear-gradient(to right, #4ea1ed 0%, #4ea1ed ${disCat}, #66cecf ${disCat}, #66cecf ${disDog})`
-    };
-
-
-    // useEffect(() => {
-    //      styles = {
-    //         // background: 'linear-gradient(to right, pink 0%, pink 50%, grey 50%, grey 100%)'
-    //         backgroundImage: `linear-gradient(to right, pink 0%, pink 50%, grey 50%, grey 100%)`
     
-    //         // backgroundImage: `linear-gradient(to right, pink 0%, pink ${disCat}%, grey ${disCat}%, grey ${disDog}%)`
-    //     }
-    // }, [disCat, disDog])
+    let catPercent = ((vote.catVote) / (vote.catVote + vote.dogVote) * 100).toFixed(1);
 
-    // console.log(styles)
+    catPercent = !(isNaN(catPercent)) ? `${catPercent}%` : "0%";
+
+    let dogPercent = ((vote.dogVote) / (vote.catVote + vote.dogVote) * 100).toFixed(1);
+
+    dogPercent = !(isNaN(dogPercent)) ? `${dogPercent}%` : "0%";
+
+    const styles = (catPercent !== "0%" && dogPercent
+    !== "0%") ? 
+        {
+            backgroundImage: `linear-gradient(to right, #4ea1ed 0%, #4ea1ed ${catPercent}, #66cecf ${catPercent}, #66cecf ${dogPercent})`
+        } 
+        : 
+        {
+            backgroundColor: `rgb(2,0,36)`,
+            backgroundImage: `linear-gradient(141deg, rgba(2,0,36,1) 0%, rgba(93,9,121,1) 35%, rgba(0,212,255,1) 100%)`
+        };
+    
   return (
 
     <div className="App" style={styles}>
         <VotingBox 
-            handleCatVote={handleCatVote}
-            handleDogVote={handleDogVote}
-            catVote={catVote}
-            dogVote={dogVote}
+            handleVote={handleVote}
+            catPercent={catPercent}
+            dogPercent={dogPercent}
         />
 
         <p>{vote.catVote + vote.dogVote} votes</p>
